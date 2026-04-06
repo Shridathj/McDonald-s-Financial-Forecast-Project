@@ -1,6 +1,6 @@
 # McDonald’s Financial Forecast Project
 
-**Professional Summary & Technical Report**  
+**Summary & Technical Report**  
 Developed by Pranav  
 Excel Version: March 2025 | Python Version: October 2025  
 April 2026
@@ -74,6 +74,6 @@ All assumptions grounded in McDonald’s official 10-K/10-Q filings (2014–2023
 
 ---
 
-**License**: MIT  
+**License**: Apache2.0 
 **Author**: Pranav  
 **Last Updated**: April 2026
