@@ -20,7 +20,7 @@ def segment_analysis():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     # CPI Multipliers 
     multipliers = {
@@ -385,7 +385,7 @@ def segment_analysis():
     <p style='font-family:Arial;font-size:12px;text-align:center;'>All values in $M. Adjusted to 2018 USD using BLS CPI-U multipliers (rounded).</p>
     """
 
-    display(HTML(html_output))
+    st.write((html_output))
 
 # Run the function
 if __name__ == "__main__":

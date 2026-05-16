@@ -23,7 +23,7 @@ def ratio_analysis():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     # Data for each section 
     sections = {
@@ -412,7 +412,7 @@ def ratio_analysis():
     {''.join(html_parts)}
     """
     
-    display(HTML(html_output))
+    st.write((html_output))
 
 # Run the function
 if __name__ == "__main__":

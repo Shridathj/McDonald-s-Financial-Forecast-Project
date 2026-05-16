@@ -1,23 +1,8 @@
 # Cash Flow Statement
 
-import importlib
+import streamlit as st  
 import pandas as pd
 import numpy as np
-
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value):
-        return value
-
-    def Markdown(value):
-        return value
-
-    display = print
-
 
 def cash_flow_statement():
     """
@@ -33,7 +18,7 @@ def cash_flow_statement():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     # Data from CF Statement sheet (unadjusted nominal values)
     data_unadjusted = {
@@ -425,7 +410,7 @@ def cash_flow_statement():
     """
 
     # Display the tables
-    display(HTML(html_output))
+    st.markdown(html_output)
 
 # Run the function
 if __name__ == "__main__":

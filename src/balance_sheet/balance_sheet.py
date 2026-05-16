@@ -1,28 +1,8 @@
 # Balance Sheet
 
-import importlib
+import streamlit as st
+import plotly.express as px
 import pandas as pd
-px = None
-try:
-    px = importlib.import_module("plotly.express")
-except ImportError:
-    px = None
-import numpy as np
-
-import importlib
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value):
-        return value
-
-    def Markdown(value):
-        return value
-
-    display = print
 
 def balance_sheet():
     """
@@ -39,7 +19,7 @@ def balance_sheet():
 </div>
 
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text, unsafe_allow_html=True)
 
     # Data from Balance Sheet sheet (unadjusted nominal values) with hierarchical structure
     data_unadjusted = {
@@ -321,7 +301,7 @@ def balance_sheet():
     """
 
     # Display the tables in the output
-    display(HTML(html_output))
+    st.markdown(html_output)
 
     # Plot Key Ratios (Bar Chart)
     ratios_data = df_adjusted[df_adjusted['Metrics'].isin(['Return on Assets (ROA)', 'Debt to Asset Ratio (D/A)', 'Current Ratio'])].copy()
@@ -351,7 +331,7 @@ def balance_sheet():
         )
         fig.show()
     else:
-        display(Markdown("**Plotly is not installed. Skipping ratio chart display.**"))
+        st.markdown("**Plotly is not installed. Skipping ratio chart display.**")
 
 # Run the function
 if __name__ == "__main__":

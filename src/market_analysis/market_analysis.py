@@ -35,7 +35,7 @@ def market_research():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     years = ['2014', '2015', '2016', '2017', '2018']
     cycle_phase = ['Expansion'] * 5
@@ -103,15 +103,15 @@ def market_research():
         return styled.to_html()
 
     # Display tables
-    display(HTML(style_table(adj_data, "Market Research", "(Adjusted to 2018 USD)")))
-    display(HTML(style_table(unadj_market_df, "Unadjusted Market Sizes", "(Nominal)", "All in $M")))
+    st.write((style_table(adj_data, "Market Research", "(Adjusted to 2018 USD)")))
+    st.write((style_table(unadj_market_df, "Unadjusted Market Sizes", "(Nominal)", "All in $M")))
 
     # Footer with reference
     footer_md = f"""
 <p style='font-family:Arial;font-size:12px;text-align:center;'>Adjusted to 2018 USD via BLS CPI-U multipliers. Average RG (Adjusted): {avg_rg_adj:.2%}. Cycle Phase: All Expansion.</p>
 <p style='font-family:Arial;font-size:21px;'>Market Size Source: <a href="https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/">IBISWorld Global Fast Food Restaurants</a></p>
 """
-    display(Markdown(footer_md))
+    st.markdown(footer_md)
 
 # Run the function
 if __name__ == "__main__":

@@ -25,7 +25,7 @@ def quarterly_analysis():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     # CPI Multipliers 
     multipliers = {
@@ -112,10 +112,10 @@ def quarterly_analysis():
         return styled.to_html()
 
     # Display tables
-    display(HTML(style_table(revenues_adj, "Adjusted Quarterly Revenues (2018 USD)", "All in $M")))
-    display(HTML(style_table(revenues_unadj, "Unadjusted Quarterly Revenues", "All in $M")))
-    display(HTML(style_table(seasonality, "Seasonality Factors", "Computed as (Quarterly Revenue / (Annual Total / 4)); Yearly Factor = Avg of Q1-Q4 Seasonalites")))
-    display(HTML(style_table(volatility, "Volatility Metrics", "Computed: Mean/Std Dev of Quarters per Year; Volatility = Std Dev / Mean (All in $M except %; based on unadjusted)")))
+    st.write((style_table(revenues_adj, "Adjusted Quarterly Revenues (2018 USD)", "All in $M")))
+    st.write((style_table(revenues_unadj, "Unadjusted Quarterly Revenues", "All in $M")))
+    st.write((style_table(seasonality, "Seasonality Factors", "Computed as (Quarterly Revenue / (Annual Total / 4)); Yearly Factor = Avg of Q1-Q4 Seasonalites")))
+    st.write((style_table(volatility, "Volatility Metrics", "Computed: Mean/Std Dev of Quarters per Year; Volatility = Std Dev / Mean (All in $M except %; based on unadjusted)")))
 
     # Global layout config
     legend_config = dict(orientation="h", yanchor="bottom", y=-0.15, xanchor="center", x=0.5, font=dict(size=10))
@@ -141,14 +141,14 @@ def quarterly_analysis():
     # Generate and display plot
     fig_seas = plot_seasonality_heatmap()
 
-    display(fig_seas)
+    st.plotly_chart(fig_seas)
 
     # Footer
     footer_md = """
 <p style='font-family:Arial;font-size:12px;text-align:center;'>All revenues in $M (adjusted to 2018 USD via CPI multipliers). Seasonality = (Quarterly Revenue / (Annual Total / 4)). Yearly Factor = Avg of Q1-Q4 Seasonalites. Volatility = Std Dev / Mean (of quarters per year). Key Insight: Q2 consistently strongest (avg seasonality 1.033); volatility peaked in 2017 at 5.11% due to refranchising shifts.</p>
 <p style='font-family:Arial;font-size:12px;'>Go to Home | Go to Segment Analysis | Go to Ratios | Go to Forecast</p>
 """
-    display(Markdown(footer_md))
+    st.markdown(footer_md)
 
 # Run the function
 if __name__ == "__main__":

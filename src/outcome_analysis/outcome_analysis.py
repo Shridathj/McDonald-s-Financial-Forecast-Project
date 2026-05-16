@@ -23,7 +23,7 @@ def outcome_analysis():
 </div>
 
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
     
     # Data
     years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -78,7 +78,7 @@ def outcome_analysis():
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.1f}", subset=df.columns[1:])
 
-    display(HTML(dark_css + styled_df.to_html(index=False)))
+    st.write((dark_css + styled_df.to_html(index=False)))
 
     # Error Analysis 
     err_years = years[5:]
@@ -126,7 +126,7 @@ def outcome_analysis():
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.2f}", subset=err_df.columns)
 
-    display(HTML(dark_css + styled_err.to_html(index=True)))
+    st.write((dark_css + styled_err.to_html(index=True)))
 
     # Plot Chart 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -178,7 +178,7 @@ the COVID-19 pandemic, which did not align with the conditions observed in 2019-
 the models captured the initial disruption well but underestimated the recovery.
 
 """
-    display(Markdown(markdown_text2))
+    st.markdown(markdown_text2)
 
 if __name__ == "__main__":
     outcome_analysis()

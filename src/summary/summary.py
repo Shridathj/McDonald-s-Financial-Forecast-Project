@@ -20,11 +20,11 @@ market growth estimates (e.g., 4% CAGR). Critical business acumen informs realis
 financial literature. This project delivers actionable insights into resilience under varying economic conditions, serving as a key resume highlight.
 
 Moving forward, next part of this project will extend the analysis by comparing the 2019-2023 projections with actual financial data from 
-McDonald’s 10-K reports and global fast-food market sizes. This comparison aims to evaluate the accuracy of the initial assumptions, examine how well 
+McDonald's 10-K reports and global fast-food market sizes. This comparison aims to evaluate the accuracy of the initial assumptions, examine how well 
 the scenarios captured real-world impacts, completing the learning cycle of this forecast exercise.
 
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
 # Run the function
 if __name__ == "__main__":

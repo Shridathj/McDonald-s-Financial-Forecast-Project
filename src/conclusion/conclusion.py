@@ -1,19 +1,6 @@
 # Conclusion
 
-import importlib
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value):
-        return value
-
-    def Markdown(value):
-        return value
-
-    display = print
+import streamlit as st
 
 def conclusion():
     """
@@ -42,7 +29,7 @@ precision quirks (e.g., 1.061 might read as 1.060696). I caught this and checked
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
 # Run the function
 if __name__ == "__main__":

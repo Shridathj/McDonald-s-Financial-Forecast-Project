@@ -12,11 +12,9 @@ def forecast():
     and two separate line graphs for Market Size & Adjusted Revenue comparisons.
     """
     markdown_text = """
-<div style="text-align: center;">
 
 # Forecast
 
-</div>
 """
     st.markdown(markdown_text)
 

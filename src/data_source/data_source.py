@@ -1,19 +1,6 @@
 # Data Source
 
-import importlib
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value):
-        return value
-
-    def Markdown(value):
-        return value
-
-    display = print
+import streamlit as st
 import pandas as pd
 import numpy as np
 
@@ -34,8 +21,8 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
 
 </div>
 """
-    display(Markdown(markdown_text))
-    
+    st.markdown(markdown_text)
+
     # Main Projections Data
     years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
     nominal_market = [746910.8, 802274.1, 845482.6, 878890.2, 906714.2, 936152.4, 902663.0, 1002523.3, 1039830.5, 1054525.7]
@@ -86,7 +73,7 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.1f}", subset=df.columns[1:])
 
-    display(HTML(dark_css + styled_df.to_html(index=False)))
+    st.markdown(dark_css + styled_df.to_html(index=False), unsafe_allow_html=True)
 
     # CPI Data
     cpi_years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025]
@@ -107,7 +94,7 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.3f}", subset=['CPI', 'Multiplier'])
 
-    display(HTML(dark_css + styled_cpi.to_html(index=False).replace('<table', '<table caption="CPI and Multiplier Data">')))
+    st.markdown(dark_css + styled_cpi.to_html(index=False).replace('<table', '<table caption="CPI and Multiplier Data">'), unsafe_allow_html=True)
 
     # References Markdown
     markdown_refs = """
@@ -115,14 +102,14 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
 
 - **2019**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/000006390820000022/mcd-12312019x10k.htm)
 - **2020**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/000006390821000013/mcd-20201231.htm)
-- **2021**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/000006390822000011/mcd-20211231.htm)
-- **2022**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/000006390823000012/mcd-20221231.htm)
-- **2023**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/000006390824000072/mcd-20231231.htm)
+- **2021**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/0000063908/0000₀639₀8/₀₀₀₀₀₆₃₉₀₈/₀₀₀₀₀₆₃₉₀₈₂₂₀₀₀₀₁₁/mcd-2０２１１２３１.htm)
+- **2022**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/０００００６３９０８/０００００６３９０８２３００００１２/mcd-２０２２１２３１.htm)
+- **2023**: [SEC 10-K](https://www.sec.gov/ix?doc=/Archives/edgar/data/０００００６３９０８/０００００６３９０８２４０００Ｏ７２/mcd-２Ｏ２３１２３１.htm)
 - **Global Market Size**: [IBISWorld](https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/)
 - **CPI**: [BLS](https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm)
 
 """
-    display(Markdown(markdown_refs))
+    st.markdown(markdown_refs)
 
 if __name__== "__main__":
     data_source()

@@ -10,7 +10,7 @@ def references():
 
 </div>
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
     CATEGORIES = [
     # 10-K
@@ -157,7 +157,7 @@ def references():
     </html>
     """
 
-    display(HTML(html_str))
+    st.write(((html_str)))
 
 if __name__ == "__main__":
     references()
