@@ -159,9 +159,9 @@ def outcome_analysis():
         if pd.isna(val):
             return ""
         if val > 0:
-            return "background-color: rgba(255,0,0,0.2); color: red; font-weight: bold"
+            return "background-color: rgba(0,255,0,0.2); color: red; font-weight: bold"
         elif val < 0:
-            return "background-color: rgba(0,255,0,0.2); color: green; font-weight: bold"
+            return "background-color: rgba(255,0,0,0.2); color: green; font-weight: bold"
         else:
             return "background-color: rgba(255,255,0,0.2); color: black; font-weight: bold"
 
