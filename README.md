@@ -57,16 +57,81 @@ The model captured the initial disruption directionally well but modestly undere
 
 ## Repository Contents
 
-- `Excel/` – Complete Excel financial model (March 2025)  
-- `Python/` – Replicated Python implementation with interactive Plotly dashboards (October 2025)  
-- `data/` – Cleaned historical and actual datasets (CPI-adjusted)  
-- `reports/` – Full technical report and validation outputs  
+- `src/` – Modular Python implementation with interactive Plotly/Streamlit dashboards (October 2025)  
+- `run_src.py` – Main entry point for the Streamlit multi-page application  
+- `McD.xlsx` and `mcd.pdf` – Supporting data and reference materials  
 
 ## Technologies
 
-- **Excel**: Advanced financial modelling, scenario manager, dynamic dashboards  
-- **Python**: pandas, Plotly, NumPy, SciPy  
+- **Python**: pandas, Plotly, NumPy, Streamlit  
 - Data sources: SEC EDGAR, IBISWorld, BLS CPI-U  
+
+## Setup and Installation
+
+### Prerequisites
+
+- Python 3.9 or higher
+- Git
+
+### Quick Start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Shridathj/McDonald-s-Financial-Forecast-Project.git
+   cd McDonald-s-Financial-Forecast-Project
+   ```
+
+2. (Recommended) Create and activate a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   For development (linting, testing, editable install):
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+4. Run the interactive dashboard:
+   ```bash
+   streamlit run run_src.py
+   ```
+
+   The dashboard will open automatically in your browser at `http://localhost:8501`.
+
+### Development Workflow
+
+- **Code Quality**: The project uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting (configured in `pyproject.toml`).
+  - Check: `ruff check .`
+  - Format: `ruff format .`
+- **Testing**: Smoke tests located in `tests/`. Execute with `pytest`.
+- **Continuous Integration**: A GitHub Actions workflow (`.github/workflows/ci.yml`) enforces linting, formatting, and tests on every push and pull request.
+
+### Project Structure
+
+```
+McDonald-s-Financial-Forecast-Project/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                 # CI pipeline (ruff + pytest)
+├── src/                           # Modular analysis pages (home, overview, ratios, forecast, etc.)
+├── tests/
+│   ├── __init__.py
+│   └── test_smoke.py              # Import and dependency smoke tests
+├── run_src.py                     # Streamlit application entry point
+├── requirements.txt               # Runtime dependencies
+├── pyproject.toml                 # Project metadata, Ruff config, pytest config
+├── .gitignore
+├── README.md
+├── LICENSE                        # Apache 2.0
+├── McD.xlsx                       # Source data workbook
+├── mcd.pdf                        # Reference report
+└── archive/                       # Legacy files
+```
 
 ## References
 
@@ -74,6 +139,6 @@ All assumptions grounded in McDonald’s official 10-K/10-Q filings (2014–2023
 
 ---
 
-**License**: Apache2.0 
-**Author**: Pranav  
-**Last Updated**: April 2026
+**License**: Apache 2.0  
+**Author**: Pranav J  
+**Last Updated**: May 2026
