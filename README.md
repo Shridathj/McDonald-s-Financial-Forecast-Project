@@ -106,6 +106,10 @@ The model captured the initial disruption directionally well but modestly undere
    ```bash
    streamlit run run_src.py
    ```
+   Or
+    ```bash
+   python -m streamlit run run_src.py
+   ```
 
    The dashboard will open automatically in your browser at `http://localhost:8501`.
 
