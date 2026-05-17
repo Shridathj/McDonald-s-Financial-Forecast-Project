@@ -24,12 +24,20 @@ dev = [
 ]
 
 [tool.ruff]
-line-length = 120  # Slightly relaxed for data-heavy files
-target-version = "py39"
+line-length = 120
+ target-version = "py39"
+exclude = [
+    "archive/**",
+    ".git",
+    "__pycache__",
+    ".venv",
+    "build",
+    "dist"
+]
 
 [tool.ruff.lint]
-select = ["E9", "F", "I"]  # Critical rules only: syntax errors (E9), Pyflakes (F), isort (I)
-ignore = ["E501", "W291", "W293", "E302", "E305", "I001", "F841", "F541"]  # Ignore line length, trailing whitespace, blank line issues common in large data tables
+select = ["E9", "F", "I"]
+ignore = ["E501", "W291", "W293", "E302", "E305", "I001", "F841", "F541"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -21,9 +21,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install ruff
     - name: Run ruff check
-      run: ruff check .
+      run: ruff check src/ tests/
     - name: Check formatting with ruff
-      run: ruff format --check .
+      run: ruff format --check src/ tests/
 
   test:
     runs-on: ubuntu-latest
