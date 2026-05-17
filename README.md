@@ -111,7 +111,7 @@ The model captured the initial disruption directionally well but modestly undere
    python -m streamlit run run_src.py
    ```
 
-   The dashboard will open automatically in your browser at `http://localhost:8501`.
+   The dashboard will open automatically in your browser at `http://localhost:8501` (Use Dark mode for better visibility ).
 
 ### Development Workflow
 
