@@ -28,14 +28,7 @@ def market_research():
     No graphs produced.
     All values in $M.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Market Research (2014-2018)
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Market Research (2014-2018)")
 
     years = ['2014', '2015', '2016', '2017', '2018']
     cycle_phase = ['Expansion'] * 5
@@ -100,18 +93,15 @@ def market_research():
             {'selector': 'th', 'props': [('background-color', '#D3D3D3'), ('font-weight', 'bold')]},
             {'selector': 'caption', 'props': [('font-size', '14px'), ('font-weight', 'bold'), ('text-align', 'center')]}
         ])
-        return styled.to_html()
+        return styled
 
     # Display tables
-    st.write((style_table(adj_data, "Market Research", "(Adjusted to 2018 USD)")))
-    st.write((style_table(unadj_market_df, "Unadjusted Market Sizes", "(Nominal)", "All in $M")))
+    st.write(style_table(adj_data, "Market Research", "(Adjusted to 2018 USD)"))
+    st.write(style_table(unadj_market_df, "Unadjusted Market Sizes", "(Nominal)", "All in $M"))
 
     # Footer with reference
-    footer_md = f"""
-<p style='font-family:Arial;font-size:12px;text-align:center;'>Adjusted to 2018 USD via BLS CPI-U multipliers. Average RG (Adjusted): {avg_rg_adj:.2%}. Cycle Phase: All Expansion.</p>
-<p style='font-family:Arial;font-size:21px;'>Market Size Source: <a href="https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/">IBISWorld Global Fast Food Restaurants</a></p>
-"""
-    st.markdown(footer_md)
+    st.markdown(f"**Adjusted to 2018 USD via BLS CPI-U multipliers. Average RG (Adjusted): {avg_rg_adj:.2%}. Cycle Phase: All Expansion.**")
+    st.markdown(f"Market Size Source: [IBISWorld Global Fast Food Restaurants](https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/)")
 
 # Run the function
 if __name__ == "__main__":

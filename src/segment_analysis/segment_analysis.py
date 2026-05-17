@@ -13,14 +13,7 @@ def segment_analysis():
     Plots line graphs for each section.
     All values in $M.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Segment Analysis Overview
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Segment Analysis Overview")
 
     # CPI Multipliers 
     multipliers = {
@@ -125,13 +118,13 @@ def segment_analysis():
         
         # Highlight negatives
         def highlight_negatives(val):
-            return 'background-color: #FF9999' if isinstance(val, (int, float)) and val < 0 else ''
+            return 'background-color: #F85B72' if isinstance(val, (int, float)) and val < 0 else ''
         styled = styled.map(highlight_negatives, subset=pd.IndexSlice[:, ['2014', '2015', '2016', '2017', '2018']])
         
         # Highlight total rows in light green
         def highlight_totals(row):
             if 'Total' in row['Segment']:
-                return ['background-color: #90EE90'] * len(row)
+                return ['background-color: #00FF00'] * len(row)
             return [''] * len(row)
         styled = styled.apply(highlight_totals, axis=1)
         
@@ -153,7 +146,7 @@ def segment_analysis():
             {'selector': 'caption', 'props': [('font-size', '14px'), ('font-weight', 'bold'), ('text-align', 'center'), ('margin-bottom', '10px')]}
         ]).set_caption(f"{title} {adjustment}<br><small>(All in $M)</small>")
 
-        return styled.to_html()
+        return styled
 
     # Global legend configuration
     legend_config = dict(
@@ -166,7 +159,7 @@ def segment_analysis():
     )
 
     # Total color 
-    total_color = '#90EE90'
+    total_color = "#00FF00"
 
     # Section-specific color palettes 
     section_colors = {
@@ -357,35 +350,24 @@ def segment_analysis():
     fig_capex = plot_capex()
 
     # Display tables
-    table_adj_html = style_table(df_adj_combined, "Segment Analysis", "(Adjusted to 2018 USD)")
-    table_unadj_html = style_table(df_unadj_combined, "Segment Analysis", "(Unadjusted)")
+    styled_adj = style_table(df_adj_combined, "Segment Analysis", "(Adjusted to 2018 USD)")
+    styled_unadj = style_table(df_unadj_combined, "Segment Analysis", "(Unadjusted)")
 
-    html_output = f"""
-    <div style="margin-bottom: 40px;">
-        {table_adj_html}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {table_unadj_html}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {fig_revenues.to_html(full_html=False, include_plotlyjs='cdn')}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {fig_op_income.to_html(full_html=False, include_plotlyjs='cdn')}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {fig_assets.to_html(full_html=False, include_plotlyjs='cdn')}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {fig_cap_exp.to_html(full_html=False, include_plotlyjs='cdn')}
-    </div>
-    <div style="margin-bottom: 40px;">
-        {fig_capex.to_html(full_html=False, include_plotlyjs='cdn')}
-    </div>
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>All values in $M. Adjusted to 2018 USD using BLS CPI-U multipliers (rounded).</p>
-    """
-
-    st.write((html_output))
+    # Display all content
+    st.write(styled_adj)
+    st.write("")
+    st.write(styled_unadj)
+    st.write("")
+    st.plotly_chart(fig_revenues, use_container_width=True)
+    st.write("")
+    st.plotly_chart(fig_op_income, use_container_width=True)
+    st.write("")
+    st.plotly_chart(fig_assets, use_container_width=True)
+    st.write("")
+    st.plotly_chart(fig_cap_exp, use_container_width=True)
+    st.write("")
+    st.plotly_chart(fig_capex, use_container_width=True)
+    st.markdown("**All values in $M. Adjusted to 2018 USD using BLS CPI-U multipliers (rounded).**")
 
 # Run the function
 if __name__ == "__main__":

@@ -11,14 +11,7 @@ def cash_flow_statement():
     ratios in percentages, and highlights negatives in light red. Ratio cells are highlighted in blue.
     Displays Adjusted, Unadjusted, Key Ratios, and CPI tables, with an interactive bar chart for key ratios.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Cash Flow Statement Overview
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Cash Flow Statement Overview")
 
     # Data from CF Statement sheet (unadjusted nominal values)
     data_unadjusted = {
@@ -325,7 +318,7 @@ def cash_flow_statement():
         styled_df = styled_df.set_properties(**{
             'font-weight': 'bold',
             'text-align': 'center',
-            'background-color': '#FFB6C1' # Light Pink
+            'background-color': '#F85B72' # Light Pink
         }, subset=pd.IndexSlice[df['Metrics'].isin(section_headers), :])
 
         # Apply normal and right-aligned text to subsection headers
@@ -342,7 +335,7 @@ def cash_flow_statement():
         }, subset=pd.IndexSlice[df['Metrics'].isin(metrics_monetary + ratio_metrics), :])
         
         # Apply light blue highlighting to ratio rows
-        styled_df = styled_df.set_properties(**{'background-color': '#ADD8E6'}, subset=pd.IndexSlice[df['Metrics'].isin(ratio_metrics + ocf_capex), df.columns[1:]])
+        styled_df = styled_df.set_properties(**{'background-color': '#67c0ff'}, subset=pd.IndexSlice[df['Metrics'].isin(ratio_metrics + ocf_capex), df.columns[1:]])
 
         # Apply red highlighting to negative values
         def highlight_negatives(val):
@@ -372,7 +365,7 @@ def cash_flow_statement():
             'padding': '5px',
             'font-weight': 'normal'
         }, subset=pd.IndexSlice[~df['Metrics'].isin(section_headers + subsection_headers), df.columns[1:]]).set_table_styles([
-            {'selector': 'th', 'props': [('text-align', 'center'), ('background-color', '#d3d3d3'), ('border', '1px solid black'), ('font-weight', 'bold'), ('padding', '5px')]},
+            {'selector': 'th', 'props': [('text-align', 'center'), ('background-color', '#666565'), ('border', '1px solid black'), ('font-weight', 'bold'), ('padding', '5px')]},
             {'selector': 'caption', 'props': [('font-size', '16px'), ('font-weight', 'bold'), ('text-align', 'center'), ('margin-bottom', '10px')]}
         ])
 
@@ -397,20 +390,15 @@ def cash_flow_statement():
             {'selector': 'caption', 'props': [('font-size', '16px'), ('font-weight', 'bold'), ('text-align', 'center'), ('margin-bottom', '10px')]}
         ])
 
-    # HTML output for tables and chart
-    html_output = f"""
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>All values in 2018 USD (BLS CPI-U Adjusted)</p>
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>In millions (10-K)</p>
-    {styled_adjusted.to_html()}
-    <p style='font-family:Arial;font-size:12px;'>CPI Adjustment Note: Monetary values have been CPI-adjusted to reflect real purchasing power. This ensures consistency in economic analysis across years. Minor rounding differences (0.03–0.04%) may occur due to CPI multiplier precision, as noted in the Excel file, but these have negligible impact.</p>
-    {styled_unadjusted.to_html()}
-    {styled_key_ratios.to_html()}
-    {styled_cpi.to_html()}
-    <p style='font-family:Arial;font-size:12px;'>Refer below link for CPI Data:<br><a href='https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm'>BLS CPI Data</a></p>
-    """
-
     # Display the tables
-    st.markdown(html_output)
+    st.markdown("**All values in 2018 USD (BLS CPI-U Adjusted)**")
+    st.markdown("**In millions (10-K)**")
+    st.write(styled_adjusted)
+    st.markdown("**CPI Adjustment Note:** Monetary values have been CPI-adjusted to reflect real purchasing power. This ensures consistency in economic analysis across years. Minor rounding differences (0.03–0.04%) may occur due to CPI multiplier precision, as noted in the Excel file, but these have negligible impact.")
+    st.write(styled_unadjusted)
+    st.write(styled_key_ratios)
+    st.write(styled_cpi)
+    st.markdown("[CPI Data Source: BLS CPI Data](https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm)")
 
 # Run the function
 if __name__ == "__main__":

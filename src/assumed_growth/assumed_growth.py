@@ -1,19 +1,6 @@
 # Assumed Growth
 
-import importlib
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value):
-        return value
-
-    def Markdown(value):
-        return value
-
-    display = print
+import streamlit as st
 
 def assumed_growth():
     """
@@ -124,7 +111,7 @@ Data sources include McDonaldâ€™s 10-K and 10-Q filings (SEC EDGAR), IBISWorldâ€
 and Transparency Market Research 2016 (paywalled, [https://www.transparencymarketresearch.com/global-fast-food-market.html](https://www.transparencymarketresearch.com/global-fast-food-market.html)),
 though access to decade-old reports is limited due to paywall restrictions or updates.
 """
-    display(Markdown(markdown_text))
+    st.markdown(markdown_text)
 
 # Run the function
 if __name__ == "__main__":

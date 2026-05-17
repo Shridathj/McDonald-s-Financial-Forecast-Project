@@ -11,7 +11,7 @@ def home():
 
     st.info("**Prepared by:** Pranav J  |  **Date:** 11 March 2025")
 
-    st.subheader("📋 Section Index")
+    st.subheader("Section Index")
 
     data = {
         "Section": ["Overview", "Balance Sheet", "Cash Flow", "Ratios", "Segment Analysis",
@@ -29,7 +29,7 @@ def home():
     st.dataframe(pd.DataFrame(data), use_container_width=True, hide_index=True)
 
     st.markdown("---")
-    st.subheader("⚡ Quick Navigation")
+    st.subheader("Quick Navigation")
 
     cols = st.columns(4)
     sections = list(data["Section"])

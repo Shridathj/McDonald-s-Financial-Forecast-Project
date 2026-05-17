@@ -18,6 +18,19 @@ def forecast():
 """
     st.markdown(markdown_text)
 
+    # Global color palette (same as ratios.py)
+    global_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f']
+
+    # Global legend config (same as ratios.py)
+    legend_config = dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.15,
+        xanchor="center",
+        x=0.5,
+        font=dict(size=10)
+    )
+
     # Baseline Growth Assumptions
     baseline_assump_data = {
         'Assumption': ['Assumed CAGR', 'Assumed Revenue Growth', 'Market size (2018)', 'Revenue (2018)'],
@@ -183,12 +196,19 @@ def forecast():
     # Plot 1: Baseline
     fig1 = make_subplots(specs=[[{"secondary_y": True}]])
     fig1.add_trace(
-        go.Scatter(x=years, y=adjusted_revenue_baseline, name="Adjusted Revenue (Millions USD)", line=dict(color='#6A0DAD')),
+        go.Scatter(x=years, y=adjusted_revenue_baseline, name="Adjusted Revenue (Millions USD)", 
+                   mode='lines+markers',
+                   line=dict(width=2, color=global_colors[0]),
+                   marker=dict(size=6),
+                   hovertemplate='<b>Adjusted Revenue</b><br>Year: %{x}<br>Value: $%{y:,.0f}M<extra></extra>'),
         secondary_y=False,
     )
     fig1.add_trace(
-        
-        go.Scatter(x=years, y=market_size_baseline_B, name="Market Size (Billions USD)", line=dict(color='#FF6347')),
+        go.Scatter(x=years, y=market_size_baseline_B, name="Market Size (Billions USD)", 
+                   mode='lines+markers',
+                   line=dict(width=2, color=global_colors[1]),
+                   marker=dict(size=6),
+                   hovertemplate='<b>Market Size</b><br>Year: %{x}<br>Value: $%{y:,.2f}B<extra></extra>'),
         secondary_y=True,
     )
     fig1.update_xaxes(title_text="Year", showgrid=True)
@@ -200,17 +220,8 @@ def forecast():
         template='plotly_white',
         height=400,
         showlegend=True,
-        title_font_size=16,
-        font=dict(size=12, family='Arial', color='black'),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=-0.3,
-            xanchor="center",
-            x=0.5
-        ),
-        plot_bgcolor='white',
-        paper_bgcolor='white',
+        font=dict(size=12),
+        legend=legend_config,
         hovermode='x unified',
     )
     st.plotly_chart(fig1, use_container_width=True)
@@ -218,22 +229,31 @@ def forecast():
     # Plot 2: Pandemic
     fig2 = make_subplots(specs=[[{"secondary_y": True}]])
     fig2.add_trace(
-        go.Scatter(x=years, y=adjusted_revenue_pandemic, name="Adjusted Revenue (Millions USD)", line=dict(color='#008080')),
+        go.Scatter(x=years, y=adjusted_revenue_pandemic, name="Adjusted Revenue (Millions USD)", 
+                   mode='lines+markers',
+                   line=dict(width=2, color=global_colors[0]),
+                   marker=dict(size=6),
+                   hovertemplate='<b>Adjusted Revenue</b><br>Year: %{x}<br>Value: $%{y:,.0f}M<extra></extra>'),
         secondary_y=False,
     )
     fig2.add_trace(
-        
-        go.Scatter(x=years, y=proj_market_pandemic_B, name="Projected Market Size (1.5% CAGR)", line=dict(color='#FF6347')),
+        go.Scatter(x=years, y=proj_market_pandemic_B, name="Projected Market Size (1.5% CAGR)", 
+                   mode='lines+markers',
+                   line=dict(width=2, color=global_colors[1]),
+                   marker=dict(size=6),
+                   hovertemplate='<b>Market Size (1.5% CAGR)</b><br>Year: %{x}<br>Value: $%{y:,.2f}B<extra></extra>'),
         secondary_y=True,
     )
     fig2.add_trace(
-        
-        go.Scatter(x=years, y=hindsight_market_pandemic_B, name="Hindsight Market Size (2% CAGR)", line=dict(color='#FFD700')),
+        go.Scatter(x=years, y=hindsight_market_pandemic_B, name="Hindsight Market Size (2% CAGR)", 
+                   mode='lines+markers',
+                   line=dict(width=2, color=global_colors[2]),
+                   marker=dict(size=6),
+                   hovertemplate='<b>Market Size (2% CAGR)</b><br>Year: %{x}<br>Value: $%{y:,.2f}B<extra></extra>'),
         secondary_y=True,
     )
     fig2.update_xaxes(title_text="Year", showgrid=True)
     fig2.update_yaxes(title_text="Adjusted Revenue (Millions USD)", secondary_y=False, tickformat=",.0f")
-    
     fig2.update_yaxes(title_text="Market Size (Billions USD)", secondary_y=True, tickformat=",.2f")
     
     fig2.update_layout(
@@ -241,17 +261,8 @@ def forecast():
         template='plotly_white',
         height=400,
         showlegend=True,
-        title_font_size=16,
-        font=dict(size=12, family='Arial', color='black'),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=-0.3,
-            xanchor="center",
-            x=0.5
-        ),
-        plot_bgcolor='white',
-        paper_bgcolor='white',
+        font=dict(size=12),
+        legend=legend_config,
         hovermode='x unified',
     )
     st.plotly_chart(fig2, use_container_width=True)

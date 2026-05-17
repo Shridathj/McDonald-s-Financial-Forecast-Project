@@ -11,15 +11,7 @@ def balance_sheet():
     ratios in percentages, and highlights negatives in light red. Ratio cells are highlighted in blue.
     Adds a table for key ratios and generates an interactive bar chart for key balance sheet metrics.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Balance Sheet Overview
-
-</div>
-
-"""
-    st.markdown(markdown_text, unsafe_allow_html=True)
+    st.header("Balance Sheet Overview")
 
     # Data from Balance Sheet sheet (unadjusted nominal values) with hierarchical structure
     data_unadjusted = {
@@ -229,7 +221,7 @@ def balance_sheet():
         styled_df = styled_df.set_properties(**{
             'font-weight': 'bold', 
             'text-align': 'center', 
-            'background-color': '#FFB6C1'
+            'background-color': '#F85B72'
         }, subset=pd.IndexSlice[df['Metrics'].isin(Metrics_headers1), :])
 
         styled_df = styled_df.set_properties(**{
@@ -245,7 +237,7 @@ def balance_sheet():
         }, subset=pd.IndexSlice[df['Metrics'].isin(subheaders), :])
 
         # Apply blue highlighting to ratio rows
-        styled_df = styled_df.set_properties(**{'background-color': '#e0f2ff'}, subset=pd.IndexSlice[df['Metrics'].isin(ratio_metrics), :])
+        styled_df = styled_df.set_properties(**{'background-color': "#67c0ff"}, subset=pd.IndexSlice[df['Metrics'].isin(ratio_metrics), :])
 
         # Apply red highlighting to negative values
         def highlight_negatives(val):
@@ -280,7 +272,7 @@ def balance_sheet():
             'padding': '5px'
         })\
         .set_table_styles([
-            {'selector': 'th', 'props': [('text-align', 'center'), ('background-color', '#d3d3d3'), ('border', '1px solid black'), ('font-weight', 'bold'), ('padding', '5px')]},
+            {'selector': 'th', 'props': [('text-align', 'center'), ('background-color', "#666565"), ('border', '1px solid black'), ('font-weight', 'bold'), ('padding', '5px')]},
             {'selector': 'caption', 'props': [('font-size', '16px'), ('font-weight', 'bold'), ('text-align', 'center'), ('margin-bottom', '10px')]}
         ])
     
@@ -288,20 +280,18 @@ def balance_sheet():
     key_ratios = df_adjusted[df_adjusted['Metrics'].isin(['Key Ratios', 'Return on Assets (ROA)', 'Debt to Asset Ratio (D/A)', 'Current Ratio'])].copy()
     styled_key_ratios = apply_styles(key_ratios).set_caption("Key Balance Sheet Ratios (2018 USD)")
 
-    # HTML output
-    html_output = f"""
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>All values in 2018 USD (BLS CPI-U Adjusted)</p>
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>In millions, except share data (10-K)</p>
-    {styled_adjusted.to_html()}
-    <p style='font-family:Arial;font-size:12px;'>CPI Adjustment Note: Monetary values have been CPI-adjusted to reflect real purchasing power, while common stock remains unadjusted as it represents share count, not monetary value. This may cause a minor variance in the balance sheet equation due to mixed adjustment methodologies.</p>
-    {styled_unadjusted.to_html()}
-    {styled_key_ratios.to_html()}
-    {styled_cpi.to_html()}
-    <p style='font-family:Arial;font-size:12px;'>Refer below link for CPI Data:<br><a href='https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm'>BLS CPI Data</a></p>
-    """
-
-    # Display the tables in the output
-    st.markdown(html_output)
+    # Display tables
+    st.markdown("**All values in 2018 USD (BLS CPI-U Adjusted)**")
+    st.markdown("**In millions, except share data (10-K)**")
+    st.write(styled_adjusted)
+    
+    st.markdown("**CPI Adjustment Note:** Monetary values have been CPI-adjusted to reflect real purchasing power, while common stock remains unadjusted as it represents share count, not monetary value. This may cause a minor variance in the balance sheet equation due to mixed adjustment methodologies.")
+    
+    st.write(styled_unadjusted)
+    st.write(styled_key_ratios)
+    st.write(styled_cpi)
+    
+    st.markdown("[CPI Data Source: BLS CPI Data](https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm)")
 
     # Plot Key Ratios (Bar Chart)
     ratios_data = df_adjusted[df_adjusted['Metrics'].isin(['Return on Assets (ROA)', 'Debt to Asset Ratio (D/A)', 'Current Ratio'])].copy()
@@ -329,9 +319,9 @@ def balance_sheet():
             yaxis=dict(range=[0, ratios_data['Value'].max() * 1.1], tickformat='.2%'),
             showlegend=True
         )
-        fig.show()
+        st.plotly_chart(fig, use_container_width=True)
     else:
-        st.markdown("**Plotly is not installed. Skipping ratio chart display.**")
+        st.warning("Plotly is not installed. Skipping ratio chart display.")
 
 # Run the function
 if __name__ == "__main__":

@@ -1,16 +1,10 @@
 # References
 
 import streamlit as st
+import pandas as pd
 
 def references():
-    markdown_text = """
-<div style="text-align: center;">
-
-# References
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("References")
 
     CATEGORIES = [
     # 10-K
@@ -77,7 +71,7 @@ def references():
         # Others (your exact)
         'https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm',
         'https://stockanalysis.com/stocks/mcd/market-cap/',
-        '"https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/				"',
+        'https://www.ibisworld.com/global/market-size/global-fast-food-restaurants/1480/',
         'https://treasury.gov.au/publication/economic-roundup-winter-2003/the-economic-impact-of-severe-acute-respiratory-syndrome-sars',
         'https://www.ers.usda.gov/amber-waves/2015/march/recession-had-greater-impact-on-visits-to-sit-down-restaurants-than-fast-food-places/'
 ]
@@ -102,62 +96,19 @@ def references():
         'Assumed Growth'
 ]
 
-# Assert lengths (fixed to 25)
-    if not all(len(lst) == 25 for lst in [CATEGORIES, YEARS_SOURCES, LINKS, USED_IN]):
-        raise ValueError("Data lists mismatched lengths")
-
-# Build HTML rows
-    rows = []
-    for i in range(25):
-        link_text = f"SEC {YEARS_SOURCES[i]}" if '10-K' in CATEGORIES[i] or '10-Q' in CATEGORIES[i] else YEARS_SOURCES[i].split()[0]
-        row = f"""
-        <tr>
-            <td>{CATEGORIES[i]}</td>
-            <td>{YEARS_SOURCES[i]}</td>
-            <td><a href="{LINKS[i]}" target="_blank">{link_text}</a></td>
-            <td>{USED_IN[i]}</td>
-        </tr>"""
-        rows.append(row)
-
-    html_str = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>McDonald's References Worksheet</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; margin: 20px; }}
-            table {{ border-collapse: collapse; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }}
-            th, td {{ border: 1px solid #ddd; padding: 12px; text-align: left; }}
-            th {{ background-color: #f2f2f2; font-weight: bold; }}
-            tr:nth-child(even) {{ background-color: #f9f9f9; }}
-            tr:hover {{ background-color: #f5f5f5; }}
-            a {{ color: #0066cc; text-decoration: none; }}
-            a:hover {{ text-decoration: underline; }}
-            caption {{ font-size: 1.2em; margin-bottom: 10px; font-weight: bold; }}
-        </style>
-    </head>
-    <body>
-        <table>
-            <caption>References Worksheet (2014-2018)</caption>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Year/Source</th>
-                    <th>Link</th>
-                    <th>Used in</th>
-                </tr>
-            </thead>
-            <tbody>
-    {''.join(rows)}
-            </tbody>
-        </table>
-    </body>
-    </html>
-    """
-
-    st.write(((html_str)))
+    # Build DataFrame for references table
+    df_refs = pd.DataFrame({
+        'Category': CATEGORIES,
+        'Year/Source': YEARS_SOURCES,
+        'Used in': USED_IN
+    })
+    
+    # Display table with links as markdown in the display
+    st.dataframe(df_refs, use_container_width=True)
+    
+    st.markdown("### Reference Links")
+    for i, link in enumerate(LINKS):
+        st.markdown(f"- **{YEARS_SOURCES[i]}**: [{CATEGORIES[i]}]({link})")
 
 if __name__ == "__main__":
     references()

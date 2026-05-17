@@ -16,14 +16,7 @@ def ratio_analysis():
     All values adjusted to 2018 USD where applicable (BLS CPI-U Adjusted).
     All graphs standardized to line plots with markers. Legend positioned below graph.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Ratio Analysis Overview
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Ratio Analysis Overview")
 
     # Data for each section 
     sections = {
@@ -144,7 +137,7 @@ def ratio_analysis():
 
         # Highlight negatives
         def highlight_negatives(val):
-            return 'background-color: #FF9999' if isinstance(val, (int, float)) and val < 0 else ''
+            return 'background-color: #F85B72' if isinstance(val, (int, float)) and val < 0 else ''
         styled = styled.map(highlight_negatives, subset=pd.IndexSlice[:, df.columns[1:]])
 
         # General styles
@@ -165,7 +158,7 @@ def ratio_analysis():
             {'selector': 'caption', 'props': [('font-size', '14px'), ('font-weight', 'bold'), ('text-align', 'center'), ('margin-bottom', '10px')]}
         ]).set_caption(title)
 
-        return styled.to_html()
+        return styled
 
     # Plotting functions 
     def plot_income_statement(df):
@@ -183,7 +176,7 @@ def ratio_analysis():
                           legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(tickformat=",.1f")
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_balance_sheet(df):
         """Line plot for Balance Sheet ratios (single y-axis)."""
@@ -200,7 +193,7 @@ def ratio_analysis():
                           legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(tickformat=",.1f")
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_cash_flow_performance(df):
         """Line plot with dual y-axis: left % for OCF/Revenue, right $M for OCF-CapEx."""
@@ -228,7 +221,7 @@ def ratio_analysis():
         fig.update_layout(title="Cash Flow Performance", xaxis_title="Year", template='plotly_white', height=400, 
                           showlegend=True, font=dict(size=12), legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_liquidity_solvency(df):
         """Line plot with dual y-axis: explicit traces per metric (left % for debt/capex, right raw x for interest coverage)."""
@@ -268,7 +261,7 @@ def ratio_analysis():
         fig.update_layout(title="Liquidity and Solvency", xaxis_title="Year", template='plotly_white', height=400, 
                           showlegend=True, font=dict(size=12), legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_quality_earnings(df):
         """Simple line plot for OCF/Net Income (%)."""
@@ -285,7 +278,7 @@ def ratio_analysis():
                           legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(tickformat=",.1f")
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_return_ratios(df):
         """Line plot with dual y-axis: left OCF/Total assets (%), right OCF/Shareholder's equity (%)."""
@@ -314,7 +307,7 @@ def ratio_analysis():
         fig.update_layout(title="Return Ratios", xaxis_title="Year", template='plotly_white', height=400, 
                           showlegend=True, font=dict(size=12), legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_dividend_sustainability(df):
         """Line plot with dual y-axis: explicit traces (left % for OCF-Div/NI, right raw x for coverages)."""
@@ -355,7 +348,7 @@ def ratio_analysis():
         fig.update_layout(title="Dividend and Sustainability", xaxis_title="Year", template='plotly_white', height=400, 
                           showlegend=True, font=dict(size=12), legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
     def plot_market_performance(df):
         """Simple line plot for OCF/Market cap (%)."""
@@ -372,47 +365,41 @@ def ratio_analysis():
                           legend=legend_config, hovermode='x unified')
         fig.update_xaxes(showgrid=True)
         fig.update_yaxes(tickformat=",.1f")
-        return fig.to_html(full_html=False, include_plotlyjs='cdn')
+        return fig
 
-    # Generate output
-    html_parts = []
+    # Display text note
+    st.markdown("**All ratios in percentages unless noted. Adjusted values in 2018 USD (BLS CPI-U Adjusted).**")
+    st.write("")
+    
+    # Generate and display each section
     for section_title, data in sections.items():
         df = data['df']
-        table_html = style_table(df, section_title)
+        styled_table = style_table(df, section_title)
+        st.write(styled_table)
+        
+        # Get appropriate plot based on section
         if section_title == 'Income Statement Ratios':
-            plot_html = plot_income_statement(df)
+            fig = plot_income_statement(df)
         elif section_title == 'Balance Sheet Ratios':
-            plot_html = plot_balance_sheet(df)
+            fig = plot_balance_sheet(df)
         elif section_title == 'Cash Flow Performance':
-            plot_html = plot_cash_flow_performance(df)
+            fig = plot_cash_flow_performance(df)
         elif section_title == 'Liquidity and Solvency':
-            plot_html = plot_liquidity_solvency(df)
+            fig = plot_liquidity_solvency(df)
         elif section_title == 'Quality of Earnings':
-            plot_html = plot_quality_earnings(df)
+            fig = plot_quality_earnings(df)
         elif section_title == 'Return Ratios':
-            plot_html = plot_return_ratios(df)
+            fig = plot_return_ratios(df)
         elif section_title == 'Dividend and Sustainability':
-            plot_html = plot_dividend_sustainability(df)
+            fig = plot_dividend_sustainability(df)
         elif section_title == 'Market Performance':
-            plot_html = plot_market_performance(df)
+            fig = plot_market_performance(df)
         else:
-            plot_html = ""
-        html_parts.append(f"""
-        <div style="margin-bottom: 40px;">
-            {table_html}
-            <div style="margin-top: 20px;">
-                {plot_html}
-            </div>
-        </div>
-        """)
-
-    # Full HTML
-    html_output = f"""
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>All ratios in percentages unless noted. Adjusted values in 2018 USD (BLS CPI-U Adjusted).</p>
-    {''.join(html_parts)}
-    """
-    
-    st.write((html_output))
+            fig = None
+        
+        if fig:
+            st.plotly_chart(fig, use_container_width=True)
+        st.write("")
 
 # Run the function
 if __name__ == "__main__":

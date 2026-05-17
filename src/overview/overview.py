@@ -1,19 +1,8 @@
 # Income overview
 
-import importlib
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
-try:
-    ipy_display = importlib.import_module("IPython.display")
-    HTML     = ipy_display.HTML
-    Markdown = ipy_display.Markdown
-    display  = ipy_display.display
-except ModuleNotFoundError:
-    def HTML(value): return value
-    def Markdown(value): return value
-    display = print
 
 def overview():
     """
@@ -22,15 +11,7 @@ def overview():
     ratios in percentages, and highlights negatives in light red. CAGR and ratio cells are highlighted in blue.
     Adds a table for key ratios and generates an interactive bar chart.
     """
-    markdown_text2 = """
-<div style="text-align: center;">
-
-# Income Sheet Overview
-
-</div>
-
-"""
-    display(Markdown(markdown_text2))
+    st.header("Income Sheet Overview")
 
     # Data from Overview sheet (unadjusted nominal values)
     data_unadjusted = {
@@ -168,7 +149,7 @@ def overview():
         styled_df = styled_df.set_properties(**{
             'font-weight': 'bold',
             'text-align': 'center',
-            'background-color': '#FFB6C1'
+            'background-color': "#F85B72"
         }, subset=pd.IndexSlice[df['Metric'].isin(metrics_headers), :])
 
         # Apply normal and left-aligned text to subsection headers
@@ -179,8 +160,8 @@ def overview():
         }, subset=pd.IndexSlice[df['Metric'].isin(submetrics_headers), :])
 
         # Apply blue highlighting to ratio rows and CAGR column
-        styled_df = styled_df.set_properties(**{'background-color': '#e0f2ff'}, subset=pd.IndexSlice[df['Metric'].isin(ratio_metrics), :])
-        styled_df = styled_df.set_properties(**{'background-color': '#e0f2ff'}, subset=pd.IndexSlice[:, 'CAGR'])
+        styled_df = styled_df.set_properties(**{'background-color': "#67c0ff"}, subset=pd.IndexSlice[df['Metric'].isin(ratio_metrics), :])
+        styled_df = styled_df.set_properties(**{'background-color': '#67c0ff'}, subset=pd.IndexSlice[:, 'CAGR'])
 
         # Apply red highlighting to negative values
         def highlight_negatives(val):
@@ -223,19 +204,14 @@ def overview():
     key_ratios = df_adjusted[df_adjusted['Metric'].isin(['Revenue Growth', 'Operating Margin', 'Net Margin', 'EPS Growth'])].copy()
     styled_key_ratios = apply_styles(key_ratios).set_caption("Key Financial Ratios (2018 USD)")
 
-    # Generate HTML output
-    html_output = f"""
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>All values in 2018 USD (BLS CPI-U Adjusted)</p>
-    <p style='font-family:Arial;font-size:12px;text-align:center;'>In millions, except share data (10-K)</p>
-    {styled_adjusted.to_html()}
-    {styled_unadjusted.to_html()}
-    {styled_key_ratios.to_html()}
-    {styled_cpi.to_html()}
-    <p style='font-family:Arial;font-size:12px;'>Refer below link for CPI Data:<br><a href='https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm'>BLS CPI Data</a></p>
-    """
-
     # Display the tables in the output
-    display(HTML(html_output))
+    st.markdown("**All values in 2018 USD (BLS CPI-U Adjusted)**")
+    st.markdown("**In millions, except share data (10-K)**")
+    st.write(styled_adjusted)
+    st.write(styled_unadjusted)
+    st.write(styled_key_ratios)
+    st.write(styled_cpi)
+    st.markdown("[CPI Data Source: BLS CPI Data](https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexhistorical_us_table.htm)")
 
     # Plot Key Ratios (Bar Chart)
     ratios_data = df_adjusted[df_adjusted['Metric'].isin(['Revenue Growth', 'EPS Growth', 'Operating Margin', 'Net Margin'])].copy()

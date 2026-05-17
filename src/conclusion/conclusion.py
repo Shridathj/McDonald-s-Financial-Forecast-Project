@@ -9,11 +9,8 @@ def conclusion():
     
     """
     markdown_text = """
-<div style="text-align: center;">
 
 # Conclusion
-
-<div style="text-align: left; font-style: normal; margin: 10px 0;">
     
 The McDonald’s Financial Forecast Project, spanning 2014-2023, analyzed historical financial data and projected revenues under three scenarios—Baseline,
 Pandemic Disruption, and Hindsight—adjusted to 2025 USD for relevance. Part 2 (Outcome Analysis)  validated these projections against actual
@@ -25,9 +22,7 @@ highlights the importance of dynamic modeling in forecasting, paving the way for
 
 Note: CPI multipliers are rounded to 3 decimals (following BLS practice), which can cause a small **0.03–0.04%** error due to Python’s floating-point 
 precision quirks (e.g., 1.061 might read as 1.060696). I caught this and checked it out—the impact on the results is basically zero, so it's all good.
-</div>
 
-</div>
 """
     st.markdown(markdown_text)
 

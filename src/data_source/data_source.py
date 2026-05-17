@@ -10,18 +10,8 @@ def  data_source():
     All values adjusted to 2018 USD except Nominal Data. Includes CPI table and references.
     Features styled tables.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Data Source (2014-2023)
-
-<div style="text-align: center; font-style: normal; margin: 10px 0;">
-All values in millions, adjusted to 2018 USD except Nominal Data.
-</div>
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Data Source (2014-2023)")
+    st.markdown("**All values in millions, adjusted to 2018 USD except Nominal Data.**")
 
     # Main Projections Data
     years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -73,7 +63,7 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.1f}", subset=df.columns[1:])
 
-    st.markdown(dark_css + styled_df.to_html(index=False), unsafe_allow_html=True)
+    st.write(styled_df)
 
     # CPI Data
     cpi_years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025]
@@ -94,7 +84,7 @@ All values in millions, adjusted to 2018 USD except Nominal Data.
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.3f}", subset=['CPI', 'Multiplier'])
 
-    st.markdown(dark_css + styled_cpi.to_html(index=False).replace('<table', '<table caption="CPI and Multiplier Data">'), unsafe_allow_html=True)
+    st.write(styled_cpi)
 
     # References Markdown
     markdown_refs = """

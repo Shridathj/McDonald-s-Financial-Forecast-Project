@@ -15,15 +15,7 @@ def outcome_analysis():
     All monetary values are in 2025 USD Millions.
     Dark mode readable via CSS media query.
     """
-    markdown_text = """
-<div style'text-align: center;">
-
-# Outcome Analysis
-
-</div>
-
-"""
-    st.markdown(markdown_text)
+    st.header("Outcome Analysis")
     
     # Data
     years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
@@ -50,22 +42,6 @@ def outcome_analysis():
     }
     df = pd.DataFrame(df_data)
 
-    # Style
-    dark_css = """
-    <style>
-    @media (prefers-color-scheme: dark) {
-        table { background-color: #1e1e1e; color: #fff; }
-        th { background-color: #2d2d2d; color: #fff; border-color: #444; }
-        td { background-color: #1e1e1e; color: #fff; border-color: #444; }
-        tr:nth-child(even) { background-color: #2d2d2d; }
-        tr:hover { background-color: #333; }
-        .market-header { background-color: #add8e6 !important; color: #000 !important; }
-        .rev-header { background-color: #ffdab9 !important; color: #000 !important; }
-        .actual-header { background-color: #f0f8ff !important; color: #000 !important; }
-    }
-    </style>
-    """
-
     # Style main table 
     styled_df = df.style.set_table_styles([
         {'selector': 'th.col_heading[col="Actual Market"]', 'props': [('background-color', '#e6f3ff'), ('color', 'navy'), ('font-weight', 'bold')]},
@@ -78,7 +54,7 @@ def outcome_analysis():
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.1f}", subset=df.columns[1:])
 
-    st.write((dark_css + styled_df.to_html(index=False)))
+    st.write(styled_df)
 
     # Error Analysis 
     err_years = years[5:]
@@ -126,7 +102,7 @@ def outcome_analysis():
         {'selector': 'tr:hover', 'props': [('background-color', '#f5f5f5')]}
     ]).format("{:,.2f}", subset=err_df.columns)
 
-    st.write((dark_css + styled_err.to_html(index=True)))
+    st.write(styled_err)
 
     # Plot Chart 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -155,14 +131,13 @@ def outcome_analysis():
         legend=dict(orientation="h", yanchor="bottom", y=-0.25, xanchor="center", x=0.5, bgcolor='rgba(0,0,0,0.5)', bordercolor='gray')
     )
     
-    fig.show()
+    st.plotly_chart(fig, use_container_width=True)
 
-    markdown_text2 = """
-# Outcome Analysis Summary
-
+    st.markdown("## Outcome Analysis Summary")
+    st.markdown("""
 All monetary values—historical data (2014-2018), forecasted figures (2019-2023), and actual market size and revenue data (2019-2023) from sources—have
 been adjusted to 2025 USD using CPI multipliers for precision in the error analysis. This aligns the project with current purchasing power as of March 
-2025, ensuring a consistent basis for comparing projections against actual outcomes. The adjustments are documented in the “Data Reference” sheet, 
+2025, ensuring a consistent basis for comparing projections against actual outcomes. The adjustments are documented in the "Data Reference" sheet, 
 accessible via the hyperlink below, allowing for transparency while keeping the analysis focused on accuracy evaluation.
 
 **Error Analysis** evaluates the percentage errors between the actual and projected values for global fast-food market sizes and revenues under the
@@ -170,15 +145,13 @@ Pandemic Disruption and Hindsight scenarios (with all figures adjusted to 2025 U
 revenue declines from the 2003 SARS outbreak (**-10%** in 2020, **-14%** in 2021) and the 2008 financial crisis, and the Hindsight scenario, 
 assuming a **2%** CAGR with annual fluctuations, share identical revenue projections across 2019-2023, resulting in an average error 
 of **-0.41%** (indicating a slight underestimate). This similarity arises because both scenarios were designed to explore company-specific vulnerabilities 
-during a severe disruption, with the Hindsight scenario’s fluctuations built around the same SARS/2008 revenue drops, reflecting historical variability 
+during a severe disruption, with the Hindsight scenario's fluctuations built around the same SARS/2008 revenue drops, reflecting historical variability 
 rather than introducing a new revenue trend. For global market sizes, the Pandemic Disruption assumes a **1.5%** CAGR with an average error of **5.81%**, while 
-the Hindsight scenario uses a **2%** CAGR with an average error of **7.41%**, reflecting the market’s actual resilience that outpaced both assumptions. 
+the Hindsight scenario uses a **2%** CAGR with an average error of **7.41%**, reflecting the market's actual resilience that outpaced both assumptions. 
 The Baseline scenario was excluded from this error analysis, as it assumes a steady **4%** CAGR without accounting for a significant disruption like 
 the COVID-19 pandemic, which did not align with the conditions observed in 2019-2023, making it less relevant for validation. These findings suggest 
 the models captured the initial disruption well but underestimated the recovery.
-
-"""
-    st.markdown(markdown_text2)
+    """)
 
 if __name__ == "__main__":
     outcome_analysis()

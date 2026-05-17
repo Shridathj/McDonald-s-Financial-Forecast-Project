@@ -18,14 +18,7 @@ def quarterly_analysis():
     - Heatmap for seasonality factors across years and quarters.
     All values in $M for revenues; factors as-is.
     """
-    markdown_text = """
-<div style="text-align: center;">
-
-# Quarterly Data Analysis (2014-2018)
-
-</div>
-"""
-    st.markdown(markdown_text)
+    st.header("Quarterly Data Analysis (2014-2018)")
 
     # CPI Multipliers 
     multipliers = {
@@ -109,13 +102,13 @@ def quarterly_analysis():
             {'selector': 'th', 'props': [('background-color', '#D3D3D3'), ('font-weight', 'bold')]},
             {'selector': 'caption', 'props': [('font-size', '14px'), ('font-weight', 'bold'), ('text-align', 'center')]}
         ])
-        return styled.to_html()
+        return styled
 
     # Display tables
-    st.write((style_table(revenues_adj, "Adjusted Quarterly Revenues (2018 USD)", "All in $M")))
-    st.write((style_table(revenues_unadj, "Unadjusted Quarterly Revenues", "All in $M")))
-    st.write((style_table(seasonality, "Seasonality Factors", "Computed as (Quarterly Revenue / (Annual Total / 4)); Yearly Factor = Avg of Q1-Q4 Seasonalites")))
-    st.write((style_table(volatility, "Volatility Metrics", "Computed: Mean/Std Dev of Quarters per Year; Volatility = Std Dev / Mean (All in $M except %; based on unadjusted)")))
+    st.write(style_table(revenues_adj, "Adjusted Quarterly Revenues (2018 USD)", "All in $M"))
+    st.write(style_table(revenues_unadj, "Unadjusted Quarterly Revenues", "All in $M"))
+    st.write(style_table(seasonality, "Seasonality Factors", "Computed as (Quarterly Revenue / (Annual Total / 4)); Yearly Factor = Avg of Q1-Q4 Seasonalites"))
+    st.write(style_table(volatility, "Volatility Metrics", "Computed: Mean/Std Dev of Quarters per Year; Volatility = Std Dev / Mean (All in $M except %; based on unadjusted)"))
 
     # Global layout config
     legend_config = dict(orientation="h", yanchor="bottom", y=-0.15, xanchor="center", x=0.5, font=dict(size=10))
@@ -144,11 +137,9 @@ def quarterly_analysis():
     st.plotly_chart(fig_seas)
 
     # Footer
-    footer_md = """
-<p style='font-family:Arial;font-size:12px;text-align:center;'>All revenues in $M (adjusted to 2018 USD via CPI multipliers). Seasonality = (Quarterly Revenue / (Annual Total / 4)). Yearly Factor = Avg of Q1-Q4 Seasonalites. Volatility = Std Dev / Mean (of quarters per year). Key Insight: Q2 consistently strongest (avg seasonality 1.033); volatility peaked in 2017 at 5.11% due to refranchising shifts.</p>
-<p style='font-family:Arial;font-size:12px;'>Go to Home | Go to Segment Analysis | Go to Ratios | Go to Forecast</p>
-"""
-    st.markdown(footer_md)
+    st.markdown("---")
+    st.markdown("**All revenues in $M (adjusted to 2018 USD via CPI multipliers). Seasonality = (Quarterly Revenue / (Annual Total / 4)). Yearly Factor = Avg of Q1-Q4 Seasonalites. Volatility = Std Dev / Mean (of quarters per year). Key Insight: Q2 consistently strongest (avg seasonality 1.033); volatility peaked in 2017 at 5.11% due to refranchising shifts.**")
+    st.markdown("[Home](#) | [Segment Analysis](#) | [Ratios](#) | [Forecast](#)")
 
 # Run the function
 if __name__ == "__main__":
