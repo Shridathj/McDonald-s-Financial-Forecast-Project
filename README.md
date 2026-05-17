@@ -59,7 +59,13 @@ The model captured the initial disruption directionally well but modestly undere
 
 - `src/` – Modular Python implementation with interactive Plotly/Streamlit dashboards (October 2025)  
 - `run_src.py` – Main entry point for the Streamlit multi-page application  
-- `McD.xlsx` and `mcd.pdf` – Supporting data and reference materials  
+- `archive/McD.xlsx` – Original Excel financial model (March 2025)  
+- `mcd.pdf` – Supporting technical report  
+
+## Related Resources
+
+- **Kaggle Notebook**: Full interactive version of this project is also available as a Kaggle notebook:  
+  [https://www.kaggle.com/code/prnavjoshi/mcdonald-s-financial-forecast-project](https://www.kaggle.com/code/prnavjoshi/mcdonald-s-financial-forecast-project)
 
 ## Technologies
 
@@ -124,9 +130,11 @@ McDonald-s-Financial-Forecast-Project/
 ├── .gitignore
 ├── README.md
 ├── LICENSE                        # Apache 2.0
-├── McD.xlsx                       # Source data workbook
 ├── mcd.pdf                        # Reference report
-└── archive/                       # Legacy files
+├── archive/
+│   ├── McD.xlsx                   # Original Excel financial model (March 2025)
+│   └── McD_Python.py              # Legacy Python implementation
+└── limitations.md                 # Known limitations of the analysis
 ```
 
 ## References
