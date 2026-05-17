@@ -102,10 +102,8 @@ def references():
         'Year/Source': YEARS_SOURCES,
         'Used in': USED_IN
     })
-    
     # Display table with links as markdown in the display
     st.dataframe(df_refs, use_container_width=True)
-    
     st.markdown("### Reference Links")
     for i, link in enumerate(LINKS):
         st.markdown(f"- **{YEARS_SOURCES[i]}**: [{CATEGORIES[i]}]({link})")

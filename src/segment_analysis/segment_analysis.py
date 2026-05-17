@@ -1,9 +1,9 @@
 # Segment Analysis
 
+import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-import streamlit as st
 
 def segment_analysis():
     """
@@ -16,8 +16,7 @@ def segment_analysis():
     st.header("Segment Analysis Overview")
 
     # CPI Multipliers 
-    multipliers = {
-        '2014': 1.061,
+    multipliers = {'2014': 1.061,
         '2015': 1.059,
         '2016': 1.046,
         '2017': 1.024,
