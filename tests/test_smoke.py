@@ -13,6 +13,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 def test_run_src_import():
     """Test that the main entry point can be imported without errors."""
     import run_src
+
     assert hasattr(run_src, "main")
     assert hasattr(run_src, "PAGES")
 
@@ -43,6 +44,7 @@ def test_pandas_and_plotly_available():
     import pandas as pd
     import plotly.express as px
     import numpy as np
+
     assert pd.__version__ is not None
     assert px is not None
     assert np is not None

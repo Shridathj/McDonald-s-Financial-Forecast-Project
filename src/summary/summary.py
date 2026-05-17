@@ -2,11 +2,12 @@
 
 import streamlit as st
 
+
 def summary():
     """
     Replicates the 'Summary' worksheet from the McDonald's financial model.
     Uses Markdown for formatted text.
-    
+
     """
     markdown_text = """
 
@@ -25,6 +26,7 @@ the scenarios captured real-world impacts, completing the learning cycle of this
 
 """
     st.markdown(markdown_text)
+
 
 # Run the function
 if __name__ == "__main__":

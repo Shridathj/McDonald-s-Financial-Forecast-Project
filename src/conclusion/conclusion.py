@@ -2,11 +2,12 @@
 
 import streamlit as st
 
+
 def conclusion():
     """
     Replicates the 'Conclusion' worksheet from the McDonald's financial model.
     Uses Markdown for formatted text.
-    
+
     """
     markdown_text = """
 
@@ -25,6 +26,7 @@ precision quirks (e.g., 1.061 might read as 1.060696). I caught this and checked
 
 """
     st.markdown(markdown_text)
+
 
 # Run the function
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
 
 import streamlit as st
 
+
 def assumed_growth():
     """
     Replicates the 'Assumed Growth' worksheet from the McDonald's financial model.
@@ -112,6 +113,7 @@ and Transparency Market Research 2016 (paywalled, [https://www.transparencymarke
 though access to decade-old reports is limited due to paywall restrictions or updates.
 """
     st.markdown(markdown_text)
+
 
 # Run the function
 if __name__ == "__main__":
