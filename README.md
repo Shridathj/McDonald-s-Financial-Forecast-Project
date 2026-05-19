@@ -58,7 +58,7 @@ The model captured the initial disruption directionally well but modestly undere
 ## Repository Contents
 
 - `src/` – Modular Python implementation with interactive Plotly/Streamlit dashboards (October 2025)  
-- `run_streamlit.py` – Main entry point for the Streamlit multi-page application  
+- `run_src.py` – Main entry point for the Streamlit multi-page application  
 - `archive/McD.xlsx` – Original Excel financial model (March 2025)  
 - `mcd.pdf` – Supporting technical report  
 
@@ -104,11 +104,11 @@ The model captured the initial disruption directionally well but modestly undere
 
 4. Run the interactive dashboard:
    ```bash
-   streamlit run run_streamlit.py
+   streamlit run run_src.py
    ```
    Or
     ```bash
-   python -m streamlit run run_streamlit.py
+   python -m streamlit run run_src.py
    ```
 
    The dashboard will open automatically in your browser at `http://localhost:8501` (Use Dark mode for better visibility ).
@@ -130,7 +130,7 @@ McDonald-s-Financial-Forecast-Project/
 ├── tests/
 │   ├── __init__.py
 │   └── test_smoke.py              # Import and dependency smoke tests (passing)
-├── run_streamlit.py                     # Streamlit application entry point
+├── run_src.py                     # Streamlit application entry point
 ├── requirements.txt               # Runtime dependencies
 ├── pyproject.toml                 # Project metadata + relaxed Ruff config + pytest config
 ├── .gitignore
