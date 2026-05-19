@@ -15,9 +15,7 @@ from typing import Optional, Dict, Any, List
 import streamlit as st
 import pandas as pd
 
-# ──────────────────────────────────────────────────────────────
 # CONFIG
-# ──────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).parent.resolve()
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -50,14 +48,10 @@ PAGES = {
     "Conclusion":      PageConfig("Final Conclusions", "src.conclusion.conclusion", "conclusion"),
 }
 
-# ──────────────────────────────────────────────────────────────
 # PAGE CONFIG
-# ──────────────────────────────────────────────────────────────
 st.set_page_config(page_title=PAGE_TITLE, layout="wide", initial_sidebar_state="expanded")
 
-# ──────────────────────────────────────────────────────────────
 # STYLES
-# ──────────────────────────────────────────────────────────────
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -73,9 +67,7 @@ html, body, [class*="css"] {{ font-family: 'Inter', sans-serif; }}
 </style>
 """, unsafe_allow_html=True)
 
-# ──────────────────────────────────────────────────────────────
 # SIDEBAR
-# ──────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown(f"""
     <div style="text-align:center; padding: 1.5rem 0 1rem;">
@@ -98,9 +90,7 @@ with st.sidebar:
     st.markdown("---")
     st.caption("Prepared by Pranav J • 11 March 2025")
 
-# ──────────────────────────────────────────────────────────────
 # MAIN LOGIC
-# ──────────────────────────────────────────────────────────────
 def main():
     page = st.session_state.get("page", "Home")
     cfg = PAGES[page]
