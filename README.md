@@ -79,7 +79,7 @@ The model captured the initial disruption directionally well but modestly undere
 - Python 3.9 or higher
 - Git
 
-### Quick Start
+### Quick Start locally (or click on the Streamlit link below)
 
 1. Clone the repository:
    ```bash
@@ -114,6 +114,9 @@ The model captured the initial disruption directionally well but modestly undere
    The dashboard will open automatically in your browser at `http://localhost:8501` (Use Dark mode for better visibility ).
 
    Snapshots of the dashboard has been added to `dashboard_snaps/` for reference.
+
+## Streamlit link
+Direct access: https://mcdonald-s-financial-forecast-project-wramqyufzqhayak9xaktab.streamlit.app
 
 ### Development Workflow
 
