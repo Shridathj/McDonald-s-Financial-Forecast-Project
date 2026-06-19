@@ -112,9 +112,34 @@ def main():
             st.error(f"Error in {page}")
             st.code(str(e))
 
-        if st.button("← Back to Home"):
-            st.session_state.page = "Home"
-            st.rerun()
+    # Navigation buttons at the bottom of each page
+    page_list = list(PAGES.keys())
+    current_index = page_list.index(page)
+    is_last_page = current_index == len(page_list) - 1
+    
+    # Create columns for button alignment
+    col1, col2, col3 = st.columns([1, 1, 1])
+    
+    # Back button (only on non-Home pages)
+    if page != "Home":
+        with col1:
+            prev_page = page_list[current_index - 1]
+            if st.button("← Back", use_container_width=True):
+                st.session_state.page = prev_page
+                st.rerun()
+    
+    # Next or Back to Home button
+    with col3:
+        if is_last_page:
+            if st.button("Back to Home →", use_container_width=True):
+                st.session_state.page = "Home"
+                st.rerun()
+        else:
+            # Get next page
+            next_page = page_list[current_index + 1]
+            if st.button(f"Next →", use_container_width=True):
+                st.session_state.page = next_page
+                st.rerun()
 
 if __name__ == "__main__":
     if "page" not in st.session_state:
