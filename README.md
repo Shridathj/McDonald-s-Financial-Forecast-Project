@@ -115,7 +115,7 @@ The model captured the initial disruption directionally well but modestly undere
 
    Snapshots of the dashboard has been added to `dashboard_snaps/` for reference.
 
-## Streamlit link: https://mcdonald-s-financial-forecast-project-wramqyufzqhayak9xaktab.streamlit.app
+## Streamlit link:  [Streamlit/Shridathj/McDonald-s-Financial-Forecast-Project](https://mcdonald-s-financial-forecast-project.streamlit.app/)
 
 ### Development Workflow
 
